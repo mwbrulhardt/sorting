@@ -17,7 +17,19 @@ def performance(algorithm=None, data=None):
 
 
 # Matt's Code
-def _merge(data, first, n1, n2):
+def _merge(data: list, first: int, n1: int, n2: int) -> None:
+    """Merges two sorted lists into a single sorted list.
+
+    This function does these operations with respect to a single list. It
+    assumes that there are two sorted sub-lists within the list 'data' and
+    then merges then together to create one sorted sub-list.
+
+    Params:
+        data: a list of comparable items
+        first: index of where the first list starts
+        n1: length of the first list
+        n2: length of the second list
+    """
     MERGE_DATA.append(data.copy())
     temp = []
     i = i1 = i2 = 0
@@ -42,7 +54,17 @@ def _merge(data, first, n1, n2):
     MERGE_DATA.append(data.copy())
 
 
-def _merge_sort_helper(data, first, n):
+def _merge_sort_helper(data: list, first: int, n: int) -> None:
+    """Helper function for merge sort. 
+    
+    This function sorts the list 'data' from the index 'first' to the index 
+    'n'.
+    
+    Params:
+        data: a list of
+        first:
+        n:
+    """
     if n > 1:
         n1 = n // 2
         n2 = n - n1
@@ -53,11 +75,11 @@ def _merge_sort_helper(data, first, n):
         _merge(data, first, n1, n2)
 
 
-def merge_sort(data):
+def merge_sort(data: list) -> None:
     return _merge_sort_helper(data, 0, len(data))
 
 
-def count_sort(data, log=True):
+def count_sort(data: list, log=True) -> None:
     n = len(data)
     k = max(data) + 1
 
@@ -88,7 +110,7 @@ def count_sort(data, log=True):
 
 
 # Andreas's Code
-def comb_sort(data, log=True):
+def comb_sort(data: list, log=True) -> None:
     gap = len(data)
     shrink = 1.3
     is_sorted = False
@@ -112,7 +134,7 @@ def comb_sort(data, log=True):
                 is_sorted = False
 
 
-def shell_sort(data, log=True):
+def shell_sort(data: list, log=True) -> None:
     ciura_gaps = [1750, 701, 301, 132, 57, 23, 10, 4, 1]
 
     for gap in ciura_gaps:
@@ -131,22 +153,22 @@ def shell_sort(data, log=True):
 
 
 # Morgan's Code
-def _heapify(subtree, heap_size, root_index):
+def _heapify(subtree: list, heap_size: int, root):
 
-    largest_value_index = root_index
-    left_child_index = 2 * root_index + 1
-    right_child_index = 2 * root_index + 2
+    largest = root
+    left = 2 * root + 1
+    right = 2 * root + 2
 
-    if left_child_index < heap_size and subtree[root_index] < subtree[left_child_index]:
-        largest_value_index = left_child_index
+    if left < heap_size and subtree[root] < subtree[left]:
+        largest = left
 
-    if right_child_index < heap_size and subtree[largest_value_index] < subtree[right_child_index]:
-        largest_value_index = right_child_index
+    if right < heap_size and subtree[largest] < subtree[right]:
+        largest = right
 
-    if largest_value_index != root_index:
-        subtree[root_index], subtree[largest_value_index] = subtree[largest_value_index], subtree[root_index]
+    if largest != root:
+        subtree[root], subtree[largest] = subtree[largest], subtree[root]
 
-        _heapify(subtree, heap_size, largest_value_index)
+        _heapify(subtree, heap_size, largest)
 
 
 def _build_max_heap(unsorted_list, list_length):
@@ -192,28 +214,9 @@ def binary_insertion_sort(data):
     return data
 
 
-def remove_copies(data) -> list:
-    arrays = []
-    for a in data:
-        # Check if a is in arrays
-        contained = False
-        for array in arrays:
-            # Check if 'a' and 'array' are equal
-            equal = True
-            for i in range(len(array)):
-                if a[i] != array[i]:
-                    equal = False
-                    break
-
-            if equal:
-                contained = True
-        if not contained:
-            arrays.append(a)
-    return arrays
-
 if __name__ == '__main__':
 
-    array = [3,4,6,3,2,4,6]
+    array = [3,2]
 
-    binary_insertion_sort(array)
+    array = binary_insertion_sort(array)
     print(array)
