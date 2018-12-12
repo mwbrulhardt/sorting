@@ -25,7 +25,7 @@ def arrays_2_images(arrays: list, title: str, frame_path: str='data/') -> list:
         values = arrays[i]
         filename = 'frame_' + str(i) + '.png'
         path = frame_path + filename
-        array_2_barplot(indices, values, title, path=path)
+        array_2_barplot(list(indices), values, title, path=path)
         images.append(path)
     return images
 

@@ -2,6 +2,8 @@ import numpy as np
 import sorting.sort as sort
 import sorting.animation as animate
 
+from functools import partial
+
 
 def remove_copies(data: list) -> list:
     arrays = []
@@ -24,8 +26,9 @@ def remove_copies(data: list) -> list:
 
 
 def make_sorting_gif(array: list, sorting_data: list, sorting_algorithm: callable=None,
-                     title: str='Sort', path: str=''):
+                     title: str='Sort', path: str='') -> None:
     sorting_data.clear()
+    sorting_algorithm = partial(sorting_algorithm, log=True)
     sorting_algorithm(array)
     sorting_data = remove_copies(sorting_data)
     animate.arrays_2_gif(sorting_data, title=title, path=path, frame_path='tmp/')
@@ -38,21 +41,21 @@ d4 = d1.copy()
 
 
 # Merge Sort
-make_sorting_gif(d1, sort.MERGE_DATA,
+make_sorting_gif(d1, sorting_data=sort.MERGE_DATA,
                  sorting_algorithm=sort.merge_sort, title='Merge Sort',
                  path='gif/merge_sort')
 
 # Count Sort
-make_sorting_gif(d2, sort.COUNT_DATA,
+make_sorting_gif(d2, sorting_data=sort.COUNT_DATA,
                  sorting_algorithm=sort.count_sort, title='Count Sort',
                  path='gif/count_sort')
 
 # Comb Sort
-make_sorting_gif(d3, sort.COMB_DATA,
+make_sorting_gif(d3, sorting_data=sort.COMB_DATA,
                  sorting_algorithm=sort.comb_sort, title='Comb Sort',
                  path='gif/comb_sort')
 
 # Shell Sort
-make_sorting_gif(d4, sort.SHELL_DATA,
+make_sorting_gif(d4, sorting_data=sort.SHELL_DATA,
                  sorting_algorithm=sort.shell_sort, title='Shell Sort',
                  path='gif/shell_sort')

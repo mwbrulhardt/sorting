@@ -1,6 +1,11 @@
-
+"""
+Contains a collection of sorting algorithms.
+"""
+from functools import partial
 
 import time
+
+
 MERGE_DATA = []
 COUNT_DATA = []
 COMB_DATA = []
@@ -9,7 +14,17 @@ HEAP_DATA = []
 BINARY_INSERTION_DATA = []
 
 
-def performance(algorithm=None, data=None):
+def performance(algorithm: callable, data: list):
+    """Calculates how long a sorting algorithm takes to sort a list.
+
+    Params:
+        algorithm (callable): the sorting algorithm to be tested
+        data: a list of numbers
+
+    Returns:
+        time (float): the time (in milliseconds) it takes for the algorithm to
+            sort
+    """
     start = time.time()
     algorithm(data)
     end = time.time()
@@ -17,7 +32,7 @@ def performance(algorithm=None, data=None):
 
 
 # Matt's Code
-def _merge(data: list, first: int, n1: int, n2: int) -> None:
+def _merge(data: list, first: int, n1: int, n2: int, log: bool=False) -> None:
     """Merges two sorted lists into a single sorted list.
 
     This function does these operations with respect to a single list. It
@@ -25,12 +40,15 @@ def _merge(data: list, first: int, n1: int, n2: int) -> None:
     then merges then together to create one sorted sub-list.
 
     Params:
-        data: a list of comparable items
-        first: index of where the first list starts
-        n1: length of the first list
-        n2: length of the second list
+        data (list[float or int]): a list of comparable items
+        first (int): index of where the first list starts
+        log (bool): a truth value to tell the algorithm to log the different steps
+            in sorting
+        n1 (int): length of the first list
+        n2 (int): length of the second list
     """
-    #MERGE_DATA.append(data.copy())
+    if log:
+        MERGE_DATA.append(data.copy())
     temp = []
     i = i1 = i2 = 0
     while i1 < n1 and i2 < n2:
@@ -51,45 +69,49 @@ def _merge(data: list, first: int, n1: int, n2: int) -> None:
 
     for i in range(i):
         data[first + i] = temp[i]
-    #MERGE_DATA.append(data.copy())
+    if log:
+        MERGE_DATA.append(data.copy())
 
 
-def _merge_sort_helper(data: list, first: int, n: int) -> None:
+def _merge_sort_helper(data: list, first: int, n: int, log: bool=False) -> None:
     """Helper function for merge sort. 
     
     This function sorts the list 'data' from the index 'first' to the index 
     'n'.
     
     Params:
-        data: a list of
-        first:
-        n:
+        data (list[float or int]): a list of comparable items
+        first (int): the location to start sorting from
+        n (int): the location to stop sorting at
+        log (bool): a truth value to tell the algorithm to log the different steps
+            in sorting
     """
     if n > 1:
         n1 = n // 2
         n2 = n - n1
-        #MERGE_DATA.append(data.copy())
+        if log:
+            MERGE_DATA.append(data.copy())
         _merge_sort_helper(data, first, n1)
         _merge_sort_helper(data, first + n1, n2)
 
         _merge(data, first, n1, n2)
 
 
-def merge_sort(data: list, log=False) -> None:
+def merge_sort(data: list, log: bool=False) -> None:
     """Sorts a given list of numbers from least to greatest.
 
     By using a divide-and-conquer approach, merge sort is able to sort a given
     list of numbers with a time complexity of O(n*log(n)).
 
     Params:
-        data: a list of comparable items
-        log: a truth value to tell the algorithm to log the different steps
+        data (list[float or int]): a list of comparable items
+        log (bool): a truth value to tell the algorithm to log the different steps
             in sorting
     """
-    return _merge_sort_helper(data, 0, len(data))
+    return _merge_sort_helper(data, 0, len(data), log=log)
 
 
-def count_sort(data: list, log=True) -> None:
+def count_sort(data: list, log: bool=False) -> None:
     """Sorts a list of positive integers from least to greatest.
 
     The count sort algorithm is a type of integer sorting algorithm. It sorts
@@ -100,8 +122,8 @@ def count_sort(data: list, log=True) -> None:
     there of size k, then this algorithm has a time complexity of O(n + k).
 
     Params:
-        data: a list of comparable items
-        log: a truth value to tell the algorithm to log the different steps
+        data (list[float or int]): a list of comparable items
+        log (bool): a truth value to tell the algorithm to log the different steps
             in sorting
     """
     n = len(data)
@@ -126,6 +148,7 @@ def count_sort(data: list, log=True) -> None:
 
     if log:
         COUNT_DATA.append(data.copy())
+
     # Copy output array into data array.
     for i in range(n):
         if log:
@@ -134,31 +157,37 @@ def count_sort(data: list, log=True) -> None:
 
 
 # Andreas's Code
-def comb_sort(data: list, log=True) -> None:
-    """
-       This function takes in a list 'data' of numbers and sorts the list from lowest to highest
-       using the comb sort method.
+def comb_sort(data: list, log: bool=False) -> None:
+    """This function takes in a list 'data' of numbers and sorts the list from lowest to highest
+    using the comb sort method.
+
+    Params:
+        data (list[float or int]): a list of comparable items
+        log (bool): a truth value to tell the algorithm to log the different steps
+            in sorting
     """
     
-    #initialize gap size and shrink factor
+    # Initialize gap size and shrink factor
     gap = len(data)
     shrink = 1.3
     is_sorted = False
 
     while not is_sorted:
-        #if log:
-            #COMB_DATA.append(data.copy())
-        #update gap size
+        if log:
+            COMB_DATA.append(data.copy())
+
+        # Update gap size
         gap = int(gap // shrink)
-        #if it's sorting adjacent elements, this is the last iteration
+
+        # If it's sorting adjacent elements, this is the last iteration
         if gap <= 1:
             gap = 1
             is_sorted = True
         
-        #sequentially compare all elements one gap apart and swap if necessary
+        # Sequentially compare all elements one gap apart and swap if necessary
         for i in range(0, len(data) - gap):
-            #if log:
-                #COMB_DATA.append(data.copy())
+            if log:
+                COMB_DATA.append(data.copy())
             if data[i] > data[i + gap]:
                 dummy = data[i]
                 data[i] = data[i + gap]
@@ -166,10 +195,14 @@ def comb_sort(data: list, log=True) -> None:
                 is_sorted = False
 
 
-def shell_sort(data: list, log=True) -> None:
-    """
-       This function takes in a list 'data' of numbers and sorts the list from lowest to highest
-       using the Shellsort method.
+def shell_sort(data: list, log: bool=False) -> None:
+    """This function takes in a list 'data' of numbers and sorts the list from
+    lowest to highest using the Shellsort method.
+
+    Params:
+        data (list[float or int]): a list of comparable items
+        log (bool): a truth value to tell the algorithm to log the different steps
+            in sorting
     """
     
     # Initialize gap sequence, based on Ciura sequence
@@ -178,8 +211,8 @@ def shell_sort(data: list, log=True) -> None:
     # Compare elements one gap apart, and insert an element in its proper
     # position if out of order
     for gap in ciura_gaps:
-        #if log:
-            #SHELL_DATA.append(data.copy())
+        if log:
+            SHELL_DATA.append(data.copy())
         for i in range(gap, len(data)):
             #if log:
                 #SHELL_DATA.append(data.copy())
@@ -232,7 +265,7 @@ def heap_sort(unsorted_list):
         _heapify(unsorted_list, i, 0)
 
 
-def _binary_search(data: list, item: float, left: int, right: int):
+def _binary_search(data: list, item, left: int, right: int):
     if left == right:
         if item > data[left]:
             return left + 1
@@ -252,17 +285,9 @@ def _binary_search(data: list, item: float, left: int, right: int):
         return midpoint
 
 
-def binary_insertion_sort(data):
+def binary_insertion_sort(data: list):
     for i in range(1, len(data)):
         item = data[i]
         position = _binary_search(data, item, 0, i - 1)
         data = data[:position] + [item] + data[position:i] + data[i + 1:]
     return data
-
-
-if __name__ == '__main__':
-
-    array = [3,2]
-
-    array = binary_insertion_sort(array)
-    print(array)
