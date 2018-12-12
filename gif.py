@@ -6,6 +6,15 @@ from functools import partial
 
 
 def remove_copies(data: list) -> list:
+    """Creates a unique list of arrays given a list of arrays containing
+    identical arrays.
+
+    Param:
+        data (list[list[float or int]]): a list of lists of comparable items
+
+    Return
+        arrays: the unique list with no repeated arrays
+    """
     arrays = []
     for a in data:
         # Check if a is in arrays
@@ -27,6 +36,20 @@ def remove_copies(data: list) -> list:
 
 def make_sorting_gif(array: list, sorting_data: list, sorting_algorithm: callable=None,
                      title: str='Sort', path: str='') -> None:
+    """Creates a gif from an array and a sorting algorithm.
+
+    Given an array, a list of lists for the sorting algorithms, a sorting
+    algorithm, a title for the gif, and a path to save the gif, the function
+    then creates a gif for the particular sorting algorithm on the specified
+    array and saves it to the specified path.
+
+    Params:
+        array (list[list[float or int]]): a list of comparable items
+        sorting_data (list[list[float or int]]):
+        sorting_algorithm (callable): the sorting algorithm to be used
+        title: the title of the gif
+        path: the path to save the gif to
+    """
     sorting_data.clear()
     sorting_algorithm = partial(sorting_algorithm, log=True)
     sorting_algorithm(array)
@@ -39,6 +62,7 @@ d2 = d1.copy()
 d3 = d1.copy()
 d4 = d1.copy()
 
+# Create gifs for the specified four algorithms.
 
 # Merge Sort
 make_sorting_gif(d1, sorting_data=sort.MERGE_DATA,
