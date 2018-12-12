@@ -7,6 +7,7 @@ In this project, we have implemented several sorting algorithms and have done so
 * **Shell Sort**
 * **Heap Sort**
 * **Binary Insertion Sort**
+
 Then for each of these algorithms you can analyze how long it takes to sort a given list, you may also create a gif out of the data you are trying to sort by using the gif.py module.
 
 ## Getting Started
@@ -17,7 +18,7 @@ git clone https://github.com/mwbrulhardt/sorting.git
 ```
 
 ## Examples 
-If you would like to sort an array you may use the following code is an example of how one may do this. In this case the code is using merge sort as the method for sorting.
+In order to sort an array, the following code may be used as an example of how to do this. In this case, merge sort is chosen as the method for sorting.
 ```
 import sorting.sort as sort
 data = [5, 2, 3, 6, 4, 7, 98]
@@ -37,8 +38,6 @@ Some things you will need in order to use the software are:
 * **Matthew Brulhardt**
 * **Morgan Mars**
 * **Andreas Lietzau**
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
