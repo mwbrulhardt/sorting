@@ -255,17 +255,17 @@ def _build_max_heap(data: list, n: int):
         _heapify(data, n, i)
 
 
-def heap_sort(unsorted_list):
-    list_length = len(unsorted_list)
+def heap_sort(data: list):
+    list_length = len(data)
 
-    _build_max_heap(unsorted_list, list_length)
+    _build_max_heap(data, list_length)
 
     for i in range(list_length - 1, 0, -1):
-        unsorted_list[i], unsorted_list[0] = unsorted_list[0], unsorted_list[i]
-        _heapify(unsorted_list, i, 0)
+        data[i], data[0] = data[0], data[i]
+        _heapify(data, i, 0)
 
 
-def _binary_search(data: list, item, left: int, right: int):
+def _binary_search(data: list, item: any, left: int, right: int):
     if left == right:
         if item > data[left]:
             return left + 1
