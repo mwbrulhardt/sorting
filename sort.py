@@ -75,11 +75,35 @@ def _merge_sort_helper(data: list, first: int, n: int) -> None:
         _merge(data, first, n1, n2)
 
 
-def merge_sort(data: list) -> None:
+def merge_sort(data: list, log=False) -> None:
+    """Sorts a given list of numbers from least to greatest.
+
+    By using a divide-and-conquer approach, merge sort is able to sort a given
+    list of numbers with a time complexity of O(n*log(n)).
+
+    Params:
+        data: a list of comparable items
+        log: a truth value to tell the algorithm to log the different steps
+            in sorting
+    """
     return _merge_sort_helper(data, 0, len(data))
 
 
 def count_sort(data: list, log=True) -> None:
+    """Sorts a list of positive integers from least to greatest.
+
+    The count sort algorithm is a type of integer sorting algorithm. It sorts
+    a list by finding the maximum number within that list, creating a different
+    list of that maximum size, and using this list to perform index arithmetic
+    to calculate the position of the different numbers in order to create a
+    sorted list. If the list is of length n with a maximum positive integer in
+    there of size k, then this algorithm has a time complexity of O(n + k).
+
+    Params:
+        data: a list of comparable items
+        log: a truth value to tell the algorithm to log the different steps
+            in sorting
+    """
     n = len(data)
     k = max(data) + 1
 
@@ -100,12 +124,12 @@ def count_sort(data: list, log=True) -> None:
         output[count[i]-1] = i
         count[i] -= 1
 
-    #if log:
-        #COUNT_DATA.append(data.copy())
+    if log:
+        COUNT_DATA.append(data.copy())
     # Copy output array into data array.
     for i in range(n):
-        #if log:
-            #COUNT_DATA.append(data.copy())
+        if log:
+            COUNT_DATA.append(data.copy())
         data[i] = output[i]
 
 
@@ -171,9 +195,9 @@ def _heapify(subtree: list, heap_size: int, root):
         _heapify(subtree, heap_size, largest)
 
 
-def _build_max_heap(unsorted_list, list_length):
-    for i in range(list_length, -1, -1):
-        _heapify(unsorted_list, list_length, i)
+def _build_max_heap(data: list, n: int):
+    for i in range(n, -1, -1):
+        _heapify(data, n, i)
 
 
 def heap_sort(unsorted_list):
@@ -186,9 +210,9 @@ def heap_sort(unsorted_list):
         _heapify(unsorted_list, i, 0)
 
 
-def _binary_search(search_list, next_item, left, right):
+def _binary_search(data: list, item: float, left: int, right: int):
     if left == right:
-        if next_item > search_list[left]:
+        if item > data[left]:
             return left + 1
         else:
             return left
@@ -198,19 +222,19 @@ def _binary_search(search_list, next_item, left, right):
 
     midpoint = (left + right) // 2
 
-    if search_list[midpoint] < next_item:
-        return _binary_search(search_list, next_item, midpoint + 1, right)
-    elif search_list[midpoint] > next_item:
-        return _binary_search(search_list, next_item, left, midpoint - 1)
+    if data[midpoint] < item:
+        return _binary_search(data, item, midpoint + 1, right)
+    elif data[midpoint] > item:
+        return _binary_search(data, item, left, midpoint - 1)
     else:
         return midpoint
 
 
 def binary_insertion_sort(data):
     for i in range(1, len(data)):
-        next_item = data[i]
-        insert_position = _binary_search(data, next_item, 0, i - 1)
-        data = data[:insert_position] + [next_item] + data[insert_position:i] + data[i + 1:]
+        item = data[i]
+        position = _binary_search(data, item, 0, i - 1)
+        data = data[:position] + [item] + data[position:i] + data[i + 1:]
     return data
 
 

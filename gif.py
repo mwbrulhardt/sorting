@@ -3,7 +3,7 @@ import sorting.sort as sort
 import sorting.animation as animate
 
 
-def remove_copies(data) -> list:
+def remove_copies(data: list) -> list:
     arrays = []
     for a in data:
         # Check if a is in arrays
@@ -23,14 +23,15 @@ def remove_copies(data) -> list:
     return arrays
 
 
-def make_sorting_gif(array, sorting_data, sorting_algorithm=None, title='Sort', path=''):
+def make_sorting_gif(array: list, sorting_data: list, sorting_algorithm: callable=None,
+                     title: str='Sort', path: str=''):
     sorting_data.clear()
     sorting_algorithm(array)
     sorting_data = remove_copies(sorting_data)
     animate.arrays_2_gif(sorting_data, title=title, path=path, frame_path='tmp/')
 
 
-d1 = np.random.randint(0, 50, 100)
+d1 = list(np.random.randint(0, 50, 100))
 d2 = d1.copy()
 d3 = d1.copy()
 d4 = d1.copy()
