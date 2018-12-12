@@ -135,6 +135,12 @@ def count_sort(data: list, log=True) -> None:
 
 # Andreas's Code
 def comb_sort(data: list, log=True) -> None:
+    """
+       This function takes in a list 'data' of numbers and sorts the list from lowest to highest
+       using the comb sort method.
+    """
+    
+    #initialize gap size and shrink factor
     gap = len(data)
     shrink = 1.3
     is_sorted = False
@@ -142,12 +148,14 @@ def comb_sort(data: list, log=True) -> None:
     while not is_sorted:
         #if log:
             #COMB_DATA.append(data.copy())
-
+        #update gap size
         gap = int(gap // shrink)
+        #if it's sorting adjacent elements, this is the last iteration
         if gap <= 1:
             gap = 1
             is_sorted = True
-
+        
+        #sequentially compare all elements one gap apart and swap if necessary
         for i in range(0, len(data) - gap):
             #if log:
                 #COMB_DATA.append(data.copy())
@@ -159,15 +167,27 @@ def comb_sort(data: list, log=True) -> None:
 
 
 def shell_sort(data: list, log=True) -> None:
+    """
+       This function takes in a list 'data' of numbers and sorts the list from lowest to highest
+       using the Shellsort method.
+    """
+    
+    #Initialize gap sequence, based on Ciura sequence
     ciura_gaps = [1750, 701, 301, 132, 57, 23, 10, 4, 1]
-
+    
+    #compare elements one gap apart, and insert an element in its proper postion if out of order
     for gap in ciura_gaps:
         #if log:
             #SHELL_DATA.append(data.copy())
         for i in range(gap, len(data)):
             #if log:
                 #SHELL_DATA.append(data.copy())
+            
+            #store current element's value
             dummy = data[i]
+            #move other elements to this element's position if they are bigger than it.
+            #elements before this element will have already been ordered correctly
+            #w.r.t the current gap size
             while (i >= gap) and (data[i - gap] > dummy):
                 #if log:
                     #SHELL_DATA.append(data.copy())
