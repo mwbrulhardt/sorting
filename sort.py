@@ -172,10 +172,11 @@ def shell_sort(data: list, log=True) -> None:
        using the Shellsort method.
     """
     
-    #Initialize gap sequence, based on Ciura sequence
+    # Initialize gap sequence, based on Ciura sequence
     ciura_gaps = [1750, 701, 301, 132, 57, 23, 10, 4, 1]
     
-    #compare elements one gap apart, and insert an element in its proper postion if out of order
+    # Compare elements one gap apart, and insert an element in its proper
+    # position if out of order
     for gap in ciura_gaps:
         #if log:
             #SHELL_DATA.append(data.copy())
@@ -183,11 +184,12 @@ def shell_sort(data: list, log=True) -> None:
             #if log:
                 #SHELL_DATA.append(data.copy())
             
-            #store current element's value
+            # Store current element's value
             dummy = data[i]
-            #move other elements to this element's position if they are bigger than it.
-            #elements before this element will have already been ordered correctly
-            #w.r.t the current gap size
+
+            # Move other elements to this element's position if they are bigger than it.
+            # elements before this element will have already been ordered correctly
+            # w.r.t. the current gap size
             while (i >= gap) and (data[i - gap] > dummy):
                 #if log:
                     #SHELL_DATA.append(data.copy())
