@@ -30,7 +30,7 @@ def _merge(data: list, first: int, n1: int, n2: int) -> None:
         n1: length of the first list
         n2: length of the second list
     """
-    MERGE_DATA.append(data.copy())
+    #MERGE_DATA.append(data.copy())
     temp = []
     i = i1 = i2 = 0
     while i1 < n1 and i2 < n2:
@@ -51,7 +51,7 @@ def _merge(data: list, first: int, n1: int, n2: int) -> None:
 
     for i in range(i):
         data[first + i] = temp[i]
-    MERGE_DATA.append(data.copy())
+    #MERGE_DATA.append(data.copy())
 
 
 def _merge_sort_helper(data: list, first: int, n: int) -> None:
@@ -68,7 +68,7 @@ def _merge_sort_helper(data: list, first: int, n: int) -> None:
     if n > 1:
         n1 = n // 2
         n2 = n - n1
-        MERGE_DATA.append(data.copy())
+        #MERGE_DATA.append(data.copy())
         _merge_sort_helper(data, first, n1)
         _merge_sort_helper(data, first + n1, n2)
 
@@ -100,12 +100,12 @@ def count_sort(data: list, log=True) -> None:
         output[count[i]-1] = i
         count[i] -= 1
 
-    if log:
-        COUNT_DATA.append(data.copy())
+    #if log:
+        #COUNT_DATA.append(data.copy())
     # Copy output array into data array.
     for i in range(n):
-        if log:
-            COUNT_DATA.append(data.copy())
+        #if log:
+            #COUNT_DATA.append(data.copy())
         data[i] = output[i]
 
 
@@ -116,8 +116,8 @@ def comb_sort(data: list, log=True) -> None:
     is_sorted = False
 
     while not is_sorted:
-        if log:
-            COMB_DATA.append(data.copy())
+        #if log:
+            #COMB_DATA.append(data.copy())
 
         gap = int(gap // shrink)
         if gap <= 1:
@@ -125,8 +125,8 @@ def comb_sort(data: list, log=True) -> None:
             is_sorted = True
 
         for i in range(0, len(data) - gap):
-            if log:
-                COMB_DATA.append(data.copy())
+            #if log:
+                #COMB_DATA.append(data.copy())
             if data[i] > data[i + gap]:
                 dummy = data[i]
                 data[i] = data[i + gap]
@@ -138,15 +138,15 @@ def shell_sort(data: list, log=True) -> None:
     ciura_gaps = [1750, 701, 301, 132, 57, 23, 10, 4, 1]
 
     for gap in ciura_gaps:
-        if log:
-            SHELL_DATA.append(data.copy())
+        #if log:
+            #SHELL_DATA.append(data.copy())
         for i in range(gap, len(data)):
-            if log:
-                SHELL_DATA.append(data.copy())
+            #if log:
+                #SHELL_DATA.append(data.copy())
             dummy = data[i]
             while (i >= gap) and (data[i - gap] > dummy):
-                if log:
-                    SHELL_DATA.append(data.copy())
+                #if log:
+                    #SHELL_DATA.append(data.copy())
                 data[i] = data[i - gap]
                 i -= gap
             data[i] = dummy
