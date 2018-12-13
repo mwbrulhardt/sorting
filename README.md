@@ -24,8 +24,20 @@ import sorting.sort as sort
 data = [5, 2, 3, 6, 4, 7, 98]
 sort.merge_sort(data)
 ```
+In addition if one would like to make a gif with a particular sorting algorithm, the following code can be used as a way to do that. The merge sort algorithm will be used again in this example.
 
-### Prerequisites
+```
+import sorting.sort as sort
+from sorting.gif import make_sorting_gif
+
+data = [5, 2, 3, 6, 4, 7, 98]
+make_sorting_gif(d1, sorting_data=sort.MERGE_DATA,
+                 sorting_algorithm=sort.merge_sort, title='Merge Sort',
+                 path='gif/merge_sort')
+```
+The parameter sorting_data is of type is a list of arrays. It is the list of arrays that gets created while sorting the algorithm. It takes a snapshot of the array being sorted at each time step and creates a list of them, to be then used to make each image for the gif.
+
+## Prerequisites
 
 Some things you will need in order to use the software are:
 * pandas
