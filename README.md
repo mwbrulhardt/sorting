@@ -24,7 +24,15 @@ import sorting.sort as sort
 data = [5, 2, 3, 6, 4, 7, 98]
 sort.merge_sort(data)
 ```
-In addition if one would like to make a gif with a particular sorting algorithm, the following code can be used as a way to do that. The merge sort algorithm will be used again in this example.
+In order to time an algorithm on a given array the following code should be used.
+```
+import sorting.sort as sort
+data = [5, 2, 3, 6, 4, 7, 98]
+t = sort.performance(algorithm=sort.merge_sort, data=data)
+```
+The value of t will be the time it took for the algorithm to sort the given data, and this time will be in milliseconds.
+
+In addition, if one would like to make a gif with a particular sorting algorithm, the following code can be used as a way to do that. The merge sort algorithm will be used again in this example.
 
 ```
 import sorting.sort as sort
